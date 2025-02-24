@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screens.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'auth/auth_wrapper.dart';
+import 'firebase_options.dart';
+import 'screens/login_screen.dart';
+import 'screens/register_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -9,16 +17,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-<<<<<<< HEAD
-        primarySwatch: Colors.blue,
-=======
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
->>>>>>> 4513ef533d6d6c31cf2430d11b7299f662d71114
-      ),
-      home: MyHomepage(),
+      title: 'E-Commerce App',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => AuthWrapper(),
+        '/login': (context) => LoginScreen(),
+        '/register': (context) => RegisterScreen(),
+      },
     );
   }
 }
